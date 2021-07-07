@@ -8,7 +8,7 @@ from utils import ImageandPatchs, ImageDataset, generatemask, getGF_fromintegral
 
 # MIDAS
 import midas.utils
-# from midas.models.midas_net import MidasNet
+from midas.models.midas_net import MidasNet
 from midas.models.dpt_depth import DPTDepthModel
 from midas.models.transforms import Resize, NormalizeImage, PrepareForNet
 
@@ -51,17 +51,17 @@ def run(dataset, option):
 
     # Decide which depth estimation network to load
     if option.depthNet == 0:
-        # midas_model_path = "midas/model.pt"
-        midas_model_path = "/home/sawseen/data/reps/MiDaS/weights/dpt_large-midas-2f21e586.pt"
+        midas_model_path = "midas/model.pt"
+        # midas_model_path = "/home/sawseen/data/reps/MiDaS/weights/dpt_large-midas-2f21e586.pt"
         global midasmodel
-        # midasmodel = MidasNet(midas_model_path, non_negative=True)
+        midasmodel = MidasNet(midas_model_path, non_negative=True)
 
-        print(f'DPT!')
-        midasmodel = DPTDepthModel(
-            path=midas_model_path,
-            backbone="vitl16_384",
-            non_negative=True,
-        )
+        # print(f'DPT!')
+        # midasmodel = DPTDepthModel(
+        #     path=midas_model_path,
+        #     backbone="vitl16_384",
+        #     non_negative=True,
+        # )
 
         midasmodel.to(device)
         midasmodel.eval()

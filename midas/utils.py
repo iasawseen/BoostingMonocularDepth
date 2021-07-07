@@ -163,6 +163,7 @@ def resize_depth(depth, width, height):
 
     return depth_resized
 
+
 def write_depth(path, depth, bits=1 , colored=False):
     """Write depth map to pfm and png file.
 
@@ -171,6 +172,8 @@ def write_depth(path, depth, bits=1 , colored=False):
         depth (array): depth
     """
     # write_pfm(path + ".pfm", depth.astype(np.float32))
+    np.save(path + '.npy', depth.astype(np.float32))
+
     if colored == True:
         bits = 1
 
@@ -195,7 +198,7 @@ def write_depth(path, depth, bits=1 , colored=False):
     if bits == 1 or colored:
         out = out.astype("uint8")
         if colored:
-            out = cv2.applyColorMap(out,cv2.COLORMAP_INFERNO)
+            out = cv2.applyColorMap(out, cv2.COLORMAP_INFERNO)
         cv2.imwrite(path+'.png', out)
     elif bits == 2:
         cv2.imwrite(path+'.png', out.astype("uint16"))
